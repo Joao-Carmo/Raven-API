@@ -27,9 +27,15 @@ db.sequelize = sequelize;
 
 db.user = require('./users.model.js')(sequelize, DataTypes);
 db.badge = require('./badges.model.js')(sequelize, DataTypes);
+db.category = require('./categories.model.js')(sequelize, DataTypes);
+db.attraction = require('./attractions.model.js')(sequelize, DataTypes);
 
-db.user.belongsToMany(db.badge, { through: db.userBadges})
-db.badge.belongsToMany(db.user, { through: db.userBadges})
+db.user.belongsToMany(db.badge, { through: db.UserBadge})
+db.badge.belongsToMany(db.user, { through: db.UserBadge})
+
+db.category.belongsToMany(db.attraction, { through: db.AttractionCategory})
+db.attraction.belongsToMany(db.category, { through: db.AttractionCategory})
+
 
 (async () => {
     try {

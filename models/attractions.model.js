@@ -1,25 +1,23 @@
 module.exports = (sequelize, DataTypes) => {
-    const Badge = sequelize.define('Badge', {
+    const Attraction = sequelize.define('Attraction', {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: { notNull: { msg: 'NAME!' } }
         },
-        image: {
+        address: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: { notNull: {msg: 'IMAGE!'}}
+            validate: { notNull: { msg: 'ADDRESS!' } }
         },
-        text: {
+        description: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {
-                notNull: { message: 'TEXT!' }
-            }
-        }
+            validate: { notNull: { msg: 'DESCRIPTION!' } }
+        },
     },
     {
         timestamps: false
     })
-    return Badge;
+    return Attraction;
 };
