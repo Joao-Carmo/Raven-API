@@ -33,6 +33,9 @@ db.attraction = require('./attractions.model.js')(sequelize, DataTypes);
 db.user.belongsToMany(db.badge, { through: db.UserBadge})
 db.badge.belongsToMany(db.user, { through: db.UserBadge})
 
+db.user.belongsToMany(db.category, {through: db.Preferences})
+db.category.belongsToMany(db.user, {through: db.Preferences})
+
 db.category.belongsToMany(db.attraction, { through: db.AttractionCategory})
 db.attraction.belongsToMany(db.category, { through: db.AttractionCategory})
 

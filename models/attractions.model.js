@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             validate: { notNull: { msg: 'DESCRIPTION!' } }
         },
+        image: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
     },
     {
         timestamps: false
