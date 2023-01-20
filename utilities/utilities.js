@@ -1,6 +1,7 @@
 var jwt = require('jsonwebtoken');
 
 const generateToken = (user_info, callback) => {
+  console.log(user_info)
     let secret = process.env.SECRET; 
     let token = jwt.sign({data: user_info}, secret, {expiresIn: '1h'});
     return callback(token); 
