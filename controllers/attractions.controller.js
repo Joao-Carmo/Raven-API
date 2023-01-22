@@ -15,7 +15,9 @@ exports.create = async (req, res) => {
                 name: req.body.name,
                 address: req.body.address,
                 description: req.body.description,
-                image: req.body.image
+                image: req.body.image,
+                longitude: req.body.longitude,
+                latitude: req.body.latitude,
           });
           return res.json({ message: `Attraction ${attraction.name} registered successfully` });        
       }

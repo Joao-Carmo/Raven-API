@@ -16,8 +16,18 @@ module.exports = (sequelize, DataTypes) => {
             validate: { notNull: { msg: 'DESCRIPTION!' } }
         },
         image: {
-            type: DataTypes.BLOB,
+            type: DataTypes.BLOB("long"),
             allowNull: false
+        },
+        longitude: {
+            type: DataTypes.FLOAT,
+            allowNull: false,
+            validate: { notNull: { msg: 'LONGITUDE!' }}
+        },
+        latitude: {
+            type: DataTypes.FLOAT,
+            allowNull: false,
+            validate: { notNull: { msg: 'LATITUDE!' }}
         },
     },
     {
