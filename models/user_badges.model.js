@@ -1,4 +1,4 @@
 module.exports = (sequelize, DataTypes) => {
-    const Preferences = sequelize.define('User')
-    return Preferences;
+    const UserBadges = sequelize.define('UserBadges')
+    return UserBadges;
 };
