@@ -3,7 +3,7 @@ const router = express.Router();
 const { validationResult, body, param } = require("express-validator");
 const categoryController = require('../controllers/categories.controller.js')
 
-router.get("/",  // Obter livros reservados
+router.get("/",
 (req, res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
