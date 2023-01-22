@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
             validate: { notNull: { msg: 'NAME!' } }
         },
         image: {
-            type: DataTypes.STRING,
+            type: DataTypes.BLOB,
             allowNull: false,
             validate: { notNull: {msg: 'IMAGE!'}}
         },

@@ -28,7 +28,7 @@ router.post("/register", mutlerUploads,
     (req, res) => {
         const errors = validationResult(req);
         if (errors.isEmpty()) {
-                mutlerUploads, userController.register(req, res);
+            userController.register(req, res);
         } else {
             res.status(404).json({ errors: errors.array() });
         }

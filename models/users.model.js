@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         image: {
-            type: DataTypes.STRING,
+            type: DataTypes.BLOB,
             allowNull: true
         },
         birth_date: {
