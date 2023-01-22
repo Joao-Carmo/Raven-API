@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { validationResult, body, param } = require("express-validator");
 const badgesController = require('../controllers/badges.controller.js');
+const multer = require('multer');
+
+let storage = multer.diskStorage({});
+
+const mutlerUploads = multer({storage: storage, limits: {fileSize: 500000}}).single('image');
 
 router.get("/",
 (req, res) => {
@@ -14,7 +19,10 @@ router.get("/",
   }
 );
 
-router.post("", 
+router.post("/", mutlerUploads,
+  body("name").notEmpty().escape().isString(),
+  body("image").notEmpty(),
+  body("text").notEmpty().escape().isString(),
 (req,res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {

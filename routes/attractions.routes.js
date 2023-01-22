@@ -14,7 +14,7 @@ router.post("/",
   }
 })
 
-router.get("/",  // Obter livros reservados
+router.get("/",
 (req, res) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
