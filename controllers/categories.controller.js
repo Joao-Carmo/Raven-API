@@ -23,3 +23,19 @@ exports.create = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.getAll = async (req, res) => {
+  try {
+      // try to find the tutorial, given its ID
+      let categories = await Category.findAll();
+
+      res.status(200).json({
+          success: true, categories: categories
+      });
+  }
+  catch (err) {
+      res.status(500).json({
+          success: false, msg: err.message || `Some error occurred while retrieving all attractions`
+      })
+  }
+};

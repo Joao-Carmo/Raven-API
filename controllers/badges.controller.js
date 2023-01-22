@@ -27,7 +27,7 @@ exports.create = async (req, res) => {
 
 exports.getAll = async (req, res) => {
   try {
-      // try to find the tutorial, given its ID
+
       let badges = await Badge.findAll();
 
       res.status(200).json({

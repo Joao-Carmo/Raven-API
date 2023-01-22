@@ -16,7 +16,7 @@ exports.login = async (req, res) => {
         user.password
       );
       if (passwordIsValid) {
-          utilities.generateToken({user: req.body.email}, (token) => {
+          utilities.generateToken({user: user}, (token) => {
               res.status(200).json(token); 
           })
       }
