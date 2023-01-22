@@ -5,16 +5,17 @@ const userController = require('../controllers/users.controller.js')
 const multer = require('multer');
 const utilities = require('../utilities/utilities.js')
 
+
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '/uploads')
+        cb(null, "./uploads/")
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '_' + Date.now())
     }
 });
 
-const mutlerUploads = multer({storage}).single('image');
+const mutlerUploads = multer({storage: storage}).single('image');
 
 
 router.post("/register", mutlerUploads,
@@ -26,6 +27,7 @@ router.post("/register", mutlerUploads,
     body("image"),
     body("birth_date").notEmpty().escape().isDate(),
     (req, res) => {
+
         const errors = validationResult(req);
         if (errors.isEmpty()) {
             userController.register(req, res);

@@ -4,15 +4,17 @@ const bcrypt = require('bcrypt');
 const User = db.user;
 const { Op } = require("sequelize");
 const cloudinary  = require('../config/cloudinary.config.js');
-
+const fs = require("fs");
+const { provisioning } = require('../config/cloudinary.config.js');
 
 exports.register = async (req, res) => {
     
   try {
     let user = await User.findOne({ where: { username: req.body.username } });
     let user_image = null;
-        if(req.file){
-            user_image = await cloudinary.uploader.upload(req.file.path);
+        if(!req.file){
+            return res.status(404).json({ message: "file can't be empty" });
+            //user_image = await cloudinary.uploader.upload(req.file.path); //cloudinary pk lo utiliza?
         }
     if (user) {
       return res.status(400).json({ message: "That user already exists." });
@@ -25,8 +27,9 @@ exports.register = async (req, res) => {
             password: bcrypt.hashSync(req.body.password, 10),
             gender: req.body.gender,
             birth_date: req.body.birth_date,
-            image: user_image ? user_image.url : null,
+            image: fs.readFileSync("./uploads/" + req.file.filename)
         });
+ 
         return res.json({ message: "User registered successfully" });        
     }
   }
@@ -42,9 +45,26 @@ exports.getAll = async (req, res) => {
         // try to find the tutorial, given its ID
         let users = await User.findAll();
 
-        res.status(200).json({
-            success: true, users: users
+        var img = ""
+        users.forEach(user => {
+            if(user.email == "dudu@hotmail.com" ) {
+                img = Buffer.from(user.image);
+            }
+        
         });
+
+
+        
+        res.writeHead(200, {
+            'Content-Type': 'image/jpg',
+            'Content-Length': img.length
+          });
+          res.end(img);
+
+
+        /*res.status(200).json({
+            success: true, users: users
+        });*/
     }
     catch (err) {
         res.status(500).json({

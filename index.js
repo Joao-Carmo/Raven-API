@@ -8,6 +8,7 @@ const host = '127.0.0.1';
 
 app.use(cors());
 app.use(express.json());
+//app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'Welcome, everything is working well'})

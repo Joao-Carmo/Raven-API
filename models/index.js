@@ -32,7 +32,6 @@ db.attraction.belongsToMany(db.user, {through: 'SavedAttractions'})
 db.user.belongsToMany(db.category, {through: 'Preferences'})
 db.category.belongsToMany(db.user, {through: 'Preferences'})
 
-
 module.exports = db;
 db.sequelize.sync()
     .then(() => {
