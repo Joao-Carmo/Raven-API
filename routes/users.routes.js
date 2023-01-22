@@ -5,18 +5,9 @@ const userController = require('../controllers/users.controller.js')
 const multer = require('multer');
 const utilities = require('../utilities/utilities.js')
 
+let storage = multer.diskStorage({});
 
-let storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "./uploads/")
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '_' + Date.now())
-    }
-});
-
-const mutlerUploads = multer({storage: storage}).single('image');
-
+const mutlerUploads = multer({storage: storage, limits: {fileSize: 500000}}).single('image');
 
 router.post("/register", mutlerUploads,
     body("username").notEmpty().escape().isString(),

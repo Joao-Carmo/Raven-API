@@ -7,15 +7,17 @@ const cloudinary  = require('../config/cloudinary.config.js');
 const fs = require("fs");
 const { provisioning } = require('../config/cloudinary.config.js');
 
-exports.register = async (req, res) => {
-    
+
+exports.register = async (req, res) => {    
   try {
     let user = await User.findOne({ where: { username: req.body.username } });
-    let user_image = null;
-        if(!req.file){
-            return res.status(404).json({ message: "file can't be empty" });
-            //user_image = await cloudinary.uploader.upload(req.file.path); //cloudinary pk lo utiliza?
-        }
+    // const upload = await cloudinary.v2.uploader.upload(req.file.path);
+
+    let upload = null;
+    if(req.file){
+        upload = await cloudinary.uploader.upload(req.file.path);
+    }
+
     if (user) {
       return res.status(400).json({ message: "That user already exists." });
     }
@@ -27,10 +29,10 @@ exports.register = async (req, res) => {
             password: bcrypt.hashSync(req.body.password, 10),
             gender: req.body.gender,
             birth_date: req.body.birth_date,
-            image: fs.readFileSync("./uploads/" + req.file.filename)
+            image: upload ? upload.url : null
         });
  
-        return res.json({ message: "User registered successfully" });        
+        return res.json({ message: "User registered successfully", file: upload.secure_url, });        
     }
   }
   catch (err) {
