@@ -26,6 +26,13 @@ db.badge.belongsToMany(db.user, { through: 'UserBadges' });
 db.attraction.belongsToMany(db.category, {through: 'AttractionCategories'})
 db.category.belongsToMany(db.attraction, {through: 'AttractionCategories'})
 
+db.user.belongsToMany(db.attraction, {through: 'SavedAttractions'})
+db.attraction.belongsToMany(db.user, {through: 'SavedAttractions'})
+
+db.user.belongsToMany(db.category, {through: 'Preferences'})
+db.category.belongsToMany(db.user, {through: 'Preferences'})
+
+
 module.exports = db;
 db.sequelize.sync()
     .then(() => {

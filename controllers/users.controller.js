@@ -54,17 +54,14 @@ exports.getAll = async (req, res) => {
   };
 
 
-exports.changePassword = async (req, res) => {
+exports.updatePassword = async (req, res) => {
     try{
-        if(req.loggedUsername !== req.body.username){
+        if(req.loggedUser !== req.params.email){
             return res.status(400).json({ success: false, msg: "User not allowed" });
-        }
-        if(!req.body.password){
-            return res.status(400).json({ success: false, msg: "Not enough data provided" });
         }
         User.update({
             password: bcrypt.hashSync(req.body.password, 10)
-        }, { where: { username: req.loggedUsername } });
+        }, { where: { email: req.loggedUser } });
         return res.status(200).json({ success: true, msg: 'Password was successfully changed.'});
     }
     catch(err){
@@ -75,3 +72,21 @@ exports.changePassword = async (req, res) => {
     }
 }
 
+exports.updateProfile = async (req, res) => {
+    try{
+        if(req.loggedUser !== req.params.email){
+            return res.status(400).json({ success: false, msg: "User not allowed" });
+        }
+        if (!req.body) {
+            return res.status(400).json({ success: false, msg: "No changes made"})
+        }
+        User.update({ where: { email: req.loggedUser } });
+        return res.status(200).json({ success: true, msg: 'Password was successfully changed.'});
+    }
+    catch(err){
+        if(err instanceof ValidationError)
+            return res.status(400).json({ success: false, msg: err.errors.map(e => e.message) });
+        else
+            return res.status(500).json({ success: false, msg: err.message || "An error occurred."});
+    }
+}

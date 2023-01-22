@@ -7,7 +7,7 @@ const { Op } = require("sequelize");
 
 exports.login = async (req, res) => {
     try {
-      let user = await User.findOne({ where: { username: req.body.username } });
+      let user = await User.findOne({ where: { email: req.body.email } });
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
@@ -16,7 +16,7 @@ exports.login = async (req, res) => {
         user.password
       );
       if (passwordIsValid) {
-          utilities.generateToken({user: req.body.username}, (token) => {
+          utilities.generateToken({user: req.body.email}, (token) => {
               res.status(200).json(token); 
           })
       }

@@ -14,9 +14,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', require('./routes/users.routes.js'));
-//app.use('/attractions', require('./routes/attractions.routes.js'));
-//app.use('/badges', require('./routes/badges.routes.js'));
-//app.use('/categories', require('./routes/categories.routes.js'));
+app.use('/attractions', require('./routes/attractions.routes.js'));
+app.use('/badges', require('./routes/badges.routes.js'));
+app.use('/categories', require('./routes/categories.routes.js'));
 app.use('/login', require('./routes/login.routes.js'));
 
 app.get('*', (req, res) =>{

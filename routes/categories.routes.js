@@ -3,8 +3,6 @@ const router = express.Router();
 const { validationResult, body, param } = require("express-validator");
 const categoryController = require('../controllers/categories.controller.js')
 
-
-
 router.get("/",  // Obter livros reservados
 (req, res) => {
     const errors = validationResult(req);
